@@ -45,6 +45,7 @@ namespace Maze
             {
                 Debug.Log("No Rigidbody Component!");
             }
+            _isDeath = false;
 
         }
 

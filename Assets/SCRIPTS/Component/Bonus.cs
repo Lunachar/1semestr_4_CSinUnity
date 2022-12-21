@@ -9,8 +9,10 @@ namespace Maze
     {
 
         private bool _isInteractable;
+        public Transform _transform;
         protected Color _color;
-        private Renderer _renderer;
+
+        protected Renderer _renderer;
         private Collider _collider;
 
         public float _hightFly;
@@ -27,6 +29,7 @@ namespace Maze
         }
 
         public virtual void Awake()
+
         {
             if (!TryGetComponent<Renderer>(out _renderer))
             {
@@ -37,16 +40,29 @@ namespace Maze
                 Debug.Log("No Collider Component!");
             }
 
+        }
+
+        void Start()
+        {
             IsInteractable = true;
             _color = Random.ColorHSV();
-            _renderer.sharedMaterial.color = _color;
+
+            if(TryGetComponent(out Renderer renderer))
+            {
+                renderer.sharedMaterial.color = _color;
+
+            }
+
+
+            
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (IsInteractable||other.CompareTag("Player"))
             {
                 Interaction();
+                IsInteractable = false;
             }
         }
 
