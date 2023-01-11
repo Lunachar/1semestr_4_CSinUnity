@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Maze
 {
-    public class ViewEndGame : MonoBehaviour
+    public class ViewEndGame
     {
 
         private Text _endGameLabel;

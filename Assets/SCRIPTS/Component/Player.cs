@@ -5,12 +5,13 @@ using UnityEngine;
 namespace Maze
 {
 
-    public class Player : Unit
+    public sealed class Player : Unit
     {
         public override void Awake()
         {
             base.Awake();
             Health = 100;
+
         }
         public override void Move(float x, float y, float z)
         {
@@ -18,7 +19,15 @@ namespace Maze
             {
                 _rb.AddForce(new Vector3(x, y, z) * _speed);
             }
+            else
+            {
+                Debug.Log("No Rigitbody");
+            }
         }
+        //void Update()
+        //{
+        //    Move(2, 0f, 0);
 
+        //}
     }
 }

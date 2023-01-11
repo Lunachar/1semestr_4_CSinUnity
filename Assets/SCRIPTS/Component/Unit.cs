@@ -37,6 +37,7 @@ namespace Maze
 
         public virtual void Awake()
         {
+            
             if(!TryGetComponent<Transform>(out _transform))
             {
                 Debug.Log("No Transform Component!");
@@ -48,8 +49,8 @@ namespace Maze
             _isDeath = false;
 
         }
-
         public abstract void Move(float x, float y, float z);
+
     }
 
 }

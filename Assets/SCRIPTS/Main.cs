@@ -13,7 +13,10 @@ namespace Maze
 
         private InputController _inputController;
 
-        private ListExecuteObjectController _executeObject;
+        private ListExecuteObjectController _interactiveObject;
+
+        
+        //private ListExecuteObjectController _executeObject;
         private Reference _reference;
         private ViewBonus _viewBonus;
         private ViewEndGame _viewEndGame;
@@ -36,21 +39,22 @@ namespace Maze
         {
             _reference = new Reference();
 
-            _inputController = new InputController(_player);
+            _inputController = new InputController(_player.GetComponent<Unit>());
+          
 
-            _executeObject = new ListExecuteObjectController(BonusObj); // Создаём экземпляр объекта
+            _interactiveObject = new ListExecuteObjectController(BonusObj); // Создаём экземпляр объекта
 
             _viewBonus = new ViewBonus(_reference.BonusLabel);
             _viewEndGame = new ViewEndGame(_reference.EndGameLabel);
             _restartButton.onClick.AddListener(RestartGame);
             _restartButton.gameObject.SetActive(false);
 
-            _executeObject.AddExecuteObject(_inputController);
+            _interactiveObject.AddExecuteObject(_inputController);
 
-            interactivEnum = _executeObject.GetEnumerator();
-            _executeObject = new ListExecuteObjectController();
+            interactivEnum = _interactiveObject.GetEnumerator();
+            
 
-            foreach (var item in _executeObject)
+            foreach (var item in _interactiveObject)
             {
                 if(item is GoodBonus goodBonus)
                 {
@@ -89,25 +93,27 @@ namespace Maze
 
         void Update()
         {
-            if (_executeObject.MoveNext())
+            //if (_interactiveObject.MoveNext())
+            //{
+            //    IExecute temp = (IExecute)_interactiveObject.Current;
+            //    temp.Update();
+            //}
+            //else
+            //{
+            //    _interactiveObject.Reset();
+            //    Debug.Log("Reset");
+            //}
+
+            for (int i = 0; i < _interactiveObject.Length; i++)
             {
-                IExecute temp = (IExecute)_executeObject.Current;
-                temp.Update();
-            }
-            else
-            {
-                _executeObject.Reset();
-                Debug.Log("Reset");
+                if (_interactiveObject[i] == null)
+                {
+                    continue;
+                }
+                _interactiveObject[i].Update();
             }
 
-            for (int i = 0; i < _executeObject.Length; i++)
-            {
-                //if(_executObject.InteractiveObject[i] == null)
-                //{
-                //    continue;
-                //}
-                //_executObject.InteractiveObject[i].Update();
-            }
+
 
         }
     }

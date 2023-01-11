@@ -6,7 +6,7 @@ namespace Maze
 {
 
 
-    public sealed class Reference : MonoBehaviour
+    public sealed class Reference
     {
         private GameObject _bonusLabel;
         private GameObject _endGameLabel;

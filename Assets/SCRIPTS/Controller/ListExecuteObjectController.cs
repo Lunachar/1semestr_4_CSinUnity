@@ -85,6 +85,11 @@ namespace Maze
             return this;
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
 
         //public void Dispose()
         //{
